@@ -19,8 +19,8 @@ public class Solver {
 	}
 	
 	public void solve() {
-		int start = 0;
-		visitPosition(getNextEmptyPosition(-1));
+		int start = getNextEmptyPosition(-1);
+		visitPosition(start);
 	}
 	
 	private boolean visitPosition(int pos) {
