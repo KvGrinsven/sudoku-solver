@@ -20,7 +20,7 @@ public class Solver {
 	
 	public void solve() {
 		int start = 0;
-		visitPosition(start);
+		visitPosition(getNextEmptyPosition(-1));
 	}
 	
 	private boolean visitPosition(int pos) {
