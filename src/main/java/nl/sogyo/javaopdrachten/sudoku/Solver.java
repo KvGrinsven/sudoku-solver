@@ -18,10 +18,61 @@ public class Solver {
 		
 	}
 	
-	// TODO Implement, dah :P
-	public boolean solve() {return true;}
+	public void solve() {
+		int start = 0;
+		visitPosition(start);
+	}
+	
+	private boolean visitPosition(int pos) {
+
+		List<Integer> options = getOptions(pos);
+				
+		if( options.size() == 0 ) {
+			return false;
+		} else {
+						
+			for(int i : options) {
+				
+				board[pos] = i;
+				if(hasNext(pos)) {
+					int next = getNextEmptyPosition(pos);
+					boolean solved = visitPosition(next);
+					if(solved) {
+						return true;
+					}
+				} else {
+					return true;
+				}
+				
+			}
+			
+			board[pos] = 0;
+			return false;
+		}
+	}
 	
 	
+	private boolean hasNext(int pos) {
+		
+		for(int i = pos+1; i < 81; i++) {
+			if(board[i] == 0) return true;
+		}
+		
+		return false;
+			
+	}
+
+	private int getNextEmptyPosition(int afterPos) {
+		int candidate = afterPos + 1;
+		
+		
+		while(board[candidate] != 0) {
+			candidate++;
+		}
+		
+		return candidate;
+	}
+
 	private List<Integer> getOptions(int pos) {
 		
 		List<Integer> options = new ArrayList<>();
@@ -35,12 +86,14 @@ public class Solver {
 		options.add(8);
 		options.add(9);
 		
+		// x and y being used as (0,0) (1,0), etc
+		//						 (0,1) (1,1)
 		int x = pos % 9;
 		int y = pos / 9;
 		int boxTopLeft = pos - (x % 3) - (y % 3 * 9);
 		
 		removeForRow(options, pos - x);
-		removeForColumn(options, y);
+		removeForColumn(options, x);
 		removeForBox(options, boxTopLeft);
 		
 		return options;
