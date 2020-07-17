@@ -106,8 +106,8 @@ public class Solver {
 		}
 	}
 	
-	private void removeForColumn(List<Integer> list, int y) {
-		for(int i = y; i < 81; i += 9) {
+	private void removeForColumn(List<Integer> list, int x) {
+		for(int i = x; i < 81; i += 9) {
 			Integer value = board[i];
 			list.remove(value);
 		}
